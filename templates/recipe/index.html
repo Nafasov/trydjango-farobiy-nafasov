@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Rcipe List{% endblock %}
+
+
+{% block header %}
+    <div class="d-flex align-items-center gap-2">
+        <h1>Recipe List <a href="{% url 'recipe:create-form' %}" class="btn btn-outline-primary">+Add New Recipe</a>
+        </h1>
+        <form class="row g-3 mt" action="{% url 'recipe:list' %}">
+            <div class="col-auto d-flex justify-content-end">
+                <input type="search" name="q" class="form-control" id="search" placeholder="Search...">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row mt-4 d-flex justify-content-center">
+        {% if object_list %}
+            {% for object in object_list %}
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <div class="card mt-3">
+                        <img src="{{ object.image.url }}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object.title }}</h5>
+                            <p class="card-text">Author: {{ object.author }}</p>
+                            <p class="card-text">{{ object.description }}</p>
+                            <p class="card-text">{{ object.created_date }}</p>
+                            <code>
+                                {% for tag in object.tags.all %}
+                                    <a href="?tag={{ tag.title }}">#{{ tag }}</a>
+                                {% endfor %}
+                            </code>
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'recipe:detail' object.slug %}" class="btn btn-outline-primary">See
+                                    more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1 class="d-flex justify-content-center">Hech narsa topilmadi!</h1>
+        {% endif %}
+
+
+        {% if object_list.has_other_pages %}
+            <ul class="pagination d-flex justify-content-center">
+                {% if object_list.has_previous %}
+                    <li><a href="?page={{ object_list.previous_page_number }}"
+                           class="btn btn-outline-success">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span class="btn btn-outline-warning">&laquo;</span></li>
+                {% endif %}
+                {% for i in object_list.paginator.page_range %}
+                    {% if object_list.number == i %}
+                        <li class="active"><span class="btn btn-outline-success active">{{ i }}</span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}" class="btn btn-outline-success">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if object_list.has_next %}
+                    <li><a href="?page={{ object_list.next_page_number }}" class="btn btn-outline-success">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><span class="btn btn-outline-warning">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+
+    </div>
+{% endblock %}

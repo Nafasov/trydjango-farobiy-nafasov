@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Recipe Create{% endblock %}
+
+{% block header %}
+    <h1>Recipe Create</h1>
+    <p><a href="{% url 'recipe:list' %}" class="btn btn-outline-secondary">Recipes</a><span> Recipe Create</span></p>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3 row">
+                    <label for="recipe_title" class="col-sm-2 col-form-label">Title:</label>
+                    <div class="col-sm-10">
+                        {{ form.title }}
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="recipe_image" class="col-sm-2 col-form-label">Image:</label>
+                    <div class="col-sm-10">
+                        {{ form.image }}
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="recipe_description" class="col-sm-2 col-form-label">Description:</label>
+                    <div class="col-sm-10">
+                        {{ form.description }}
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="recipe_tags" class="col-sm-2 col-form-label">Tags:</label>
+                    <div class="col-sm-10">
+                        {{ form.tags }}
+                    </div>
+                </div>
+                <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-primary" type="submit">Save</button>
+                    <button class="btn btn-outline-warning" type="reset">Clear</button>
+                    {% if instance %}
+                    	<a class="btn btn-outline-secondary" href="{% url 'recipe:detail' instance.slug  %}">Cancel</a>
+                    {% endif %}
+                    {% if not instance %}
+                    <a class="btn btn-outline-secondary" href="{% url 'recipe:list'  %}">Cancel</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

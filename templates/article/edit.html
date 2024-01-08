@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+     <h1>Article Change</h1>
+{% endblock %}
+
+{% block content %}
+    {% block primary_linc %}
+        {{ block.super }}
+        <span>Article Change</span>
+    {% endblock %}
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <pre>
+                    <code>Modified_date: {{ object.modified_date }}</code>
+                    <code>Created_date: {{ object.created_date }}</code>
+                </pre>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-primary" type="submit">Save</button>
+                    <button class="btn btn-outline-warning" type="reset">Clean</button>
+                    <a class="btn btn-outline-success" href="{% url 'article:list' %}">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Ingredient Change{% endblock %}
+
+{% block header %}
+    <h1>Recipe "{{ recipe.title }}" Ingredient "{{ ingredient.title }}" Change </h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3 row mt-4">
+                    <label for="ingredient_title" class="col-sm-2 col-form-label">Title:</label>
+                    <div class="col-sm-10">
+                        {{ form.title }}
+                    </div>
+                </div>
+
+                <div class="mb-3 mt-4 row">
+                    <label for="ingredient_quantity" class="col-sm-2 col-form-label">Quantity:</label>
+                    <div class="col-sm-10">
+                        {{ form.quantity }}
+                    </div>
+                </div>
+
+                <div class="mb-3 mt-4 row">
+                    <label for="ingredient_unit" class="col-sm-2 col-form-label">Unit:</label>
+                    <div class="col-sm-10">
+                        {{ form.unit }}
+                    </div>
+                </div>
+
+                <div class="mb-4 mt-4 form-check">
+                    {{ form.is_active }}
+                    <label class="form-check-label" for="ingredient_active">
+                        Ingredient active
+                    </label>
+                </div>
+
+                <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-primary" type="submit">Save</button>
+                    <button class="btn btn-outline-warning" type="reset">Clear</button>
+                    <a href="{% url 'recipe:detail' recipe.slug  %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

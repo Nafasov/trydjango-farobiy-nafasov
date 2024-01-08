@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipe Detail{% endblock %}
+
+
+{% block header %}
+    <h1>Recipe Detail</h1>
+    <spam>
+        <a href="{% url 'recipe:list' %}" class="btn btn-outline-secondary">Recipes</a>
+    Recipe Detail
+    </spam>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3 mt-4">
+                <div class="row g-0 border border-primary-subtle">
+                    <div class="col-md-4">
+                        <img src="{{ object.image.url }}" class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object.title }}</h5>
+                            <h6 class="card-title">Author: {{ object.author }}</h6>
+                            <p class="card-text">{{ object.description }}</p>
+                            <p class="card-text"><small class="text-body-secondary">{{ object.created_date }}</small>
+                            </p>
+                            <code>
+                                {% for tag in object.tags.all %}
+                                    <a href="?tag={{ tag.title }}">#{{ tag }}</a>
+                                {% endfor %}
+                            </code>
+                        </div>
+                        {% if is_author %}
+                            <div class="card-button  gap-2 d-md-flex justify-content-md-end">
+                                <a type="button" class="btn btn-outline-secondary btn-lg" href="{% url 'recipe:update' object.slug %}">Editing Recipe</a>
+                                <a href="{% url 'recipe:delete' object.slug %}" class="btn btn-outline-danger btn-lg" >Deleting Recipe</a>
+                                <a href="{% url 'recipe:ingredient-create-form' object.slug %}" class="btn btn-outline-primary btn-lg">Adding New Ingredient</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4 mt-2">
+        {% for ingredient in ingredients %}
+            <div class="col-sm-6 mb-3 mb-sm-0 mt-2">
+                <div class="card border border-primary-subtle {% if not ingredient.is_active %}alert alert-info btn btn-outline-info{% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ ingredient.title }}</h5>
+                        <p class="card-text">{{ ingredient.quantity }} - {{ ingredient.get_unit_display }}</p>
+                        {% if is_author %}
+                            <div class="card-button  gap-2 d-md-flex justify-content-md-end">
+                                <a href="{% url 'recipe:ingredient-change-form' object.slug ingredient.id %}" class="btn btn-outline-secondary">Editing Ingredient</a>
+                                <a href="{% url 'recipe:ingredient-delete-form' object.slug ingredient.id %}" class="btn btn-outline-danger">Deleting Ingredient</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

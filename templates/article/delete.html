@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+    <div>
+        <h1>Article Delete</h1>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+    {% block primary_linc %}
+        {{ block.super }}
+        <span>Article Delete</span>
+
+    {% endblock %}
+
+     <div class="row">
+         <div class="col-6">
+            <div class="text-center">
+                <h3>Do you really want to delete? <span class="text-danger">({{ object.title }})</span></h3>
+            </div>
+            <div>
+                <form  method="post">
+                    {% csrf_token %}
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <span>
+                            <button class="btn btn-outline-danger"   type="submit">Delete</button>
+                        </span>
+                        <span>
+                            <a class="btn btn-outline-info" href="{% url 'article:detail' object.slug %}">Detail</a>
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+         </div>
+    </div>
+{% endblock %}

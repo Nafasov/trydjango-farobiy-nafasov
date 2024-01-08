@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+    <h1>Article detail</h1>
+{% endblock %}
+
+
+{% block content %}
+    {% block primary_linc %}
+        {{ block.super }}
+        <span>Article Detail</span>
+    {% endblock %}
+
+    <div class="card mt-2 justify-content-center">
+        {% if object.image %}
+            <img src="{{ object.image.url }}" class="card-img-top" alt="...">
+        {% endif %}
+      <div class="card-body">
+          <h1>{{ object.title }}({{ object.id }})</h1>
+          <p class="card-text">{{ object.content }}</p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <span>
+                    <a class="btn btn-outline-success" href="{% url 'article:change-form' object.slug %} ">Edit</a>
+                </span>
+                <span>
+                    <a class="btn btn-outline-danger" href="{% url 'article:delete-form' object.slug %} ">Delete</a>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

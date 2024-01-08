@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Logout
+{% endblock %}
+
+
+{% block header %}
+    <h1>Logout Page</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <h1 class="text-danger">Are want to log out?</h1>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-md-flex justify-content-md-end gap-2">
+                 <button type="submit" class="btn btn-danger">Yes</button>
+                 <a href="{% url 'article:list' %}" class="btn btn-secondary">No</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% for message in messages %}
+    <div class="row">
+        <div class="col-md-4">
+            {% if message.tags == "primary" %}
+                <div class="alert alert-primary" role="alert">
+                    <p class="text--bs-danger-rgb">{{ message }}</p>
+                </div>
+            {% elif message.tags == "secondary" %}
+                <div class="alert alert-secondary" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success" role="alert">
+                    <p class="text--bs-danger-rgb">{{ message }}</p>
+                </div>
+            {% elif message.tags == "error" %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == "warning" %}
+                <div class="alert alert-warning" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == "info" %}
+                <div class="alert alert-info" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == "light" %}
+                <div class="alert alert-light" role="alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-dark" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block header %}
+    <h1>Login Page</h1>
+{% endblock %}
+
+{% block content %}
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <form method="post">
+            {% csrf_token %}
+              <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" id="exampleFormControlInput1" placeholder="Username">
+              </div>
+              <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Password</label>
+                  <input type="password" id="inputPassword" class="form-control" name="password" aria-describedby="passwordHelpBlock" placeholder="password">
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn btn-primary" type="submit">login</button>
+                  <a href="/" class="btn btn-secondary" type="button">Go home</a>
+              </div>
+              <div class="mt-3 gap-2 col-10 mx-auto">
+                  <p>If you don't have a account <a href="{% url 'auth:register' %}">register</a> first</p>
+              </div>
+        </form>
+    </div>
+   </div>
+
+{% endblock %}
