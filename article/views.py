@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 
 from .models import Article
@@ -27,26 +28,30 @@ def article_detail(request, slug):
 
 
 def article_create(request):
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     context = {
         'created': False
     }
-    # print(request.method)
+    print("request.method")
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
         obj = Article.objects.create(title=title, content=content)
         context['created'] = True
         context['object'] = obj
+        messages.success(request, f'Article {obj.title} successfully created')
     return render(request, 'article/create.html', context)
 
 
 def article_create_form(request):
+    print("aaaaaaaaaaaaaaa")
     form = ArticleForm()
     if request.method == 'POST':
         # print(request.POST)
         form = ArticleForm(request.POST, files=request.FILES)
         if form.is_valid():
             obj = form.save()
+            messages.success(request, f'Article {obj.title} successfully created')
             reverse_url = reverse('article:detail', kwargs={"slug": obj.slug})
             return redirect(reverse_url)
     context = {

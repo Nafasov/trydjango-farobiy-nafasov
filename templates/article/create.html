@@ -3,7 +3,7 @@
 
 {% block header %}
     <div>
-       <h1>Article Create</h1>
+        <h1>Article Create</h1>
     </div>
 {% endblock %}
 
@@ -21,32 +21,33 @@
             <span>
                 <a href="{% url 'article:create' %}">add new one</a>
             </span>
-        <h1>{{ object.title }}</h1>
-        <p>{{ object.content }}</p>
-        <pre>{{ object.created_date}}</pre>
-    {% else %}
-    <form method="post">
-        {% csrf_token %}
-        <div>
-            <div>
-                <label for="title">Title</label>
-            </div>
-            <div>
-                <input class="form-control" type="text" id="title" name="title" placeholder="title">
-            </div>
-        </div>
-        <div>
-            <div>
-                <label for="content">Content</label>
-            </div>
-            <div>
-                <textarea class="form-control" name="content" id="content" placeholder="content" cols="60" rows="10"></textarea>
-            </div>
-        </div>
-        <div>
-            <button class="btn btn-outline-primary type=" type="submit">Save</button>
-        </div>
-    </form>
+            <h1>{{ object.title }}</h1>
+            <p>{{ object.content }}</p>
+            <pre>{{ object.created_date }}</pre>
+            {% else %}
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <label for="title">Title</label>
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" id="title" name="title" placeholder="title">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="content">Content</label>
+                    </div>
+                    <div>
+                        <textarea class="form-control" name="content" id="content" placeholder="content" cols="60"
+                                  rows="10"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary type=" type="submit">Save</button>
+                </div>
+            </form>
         </div>
     {% endif %}
 {% endblock %}

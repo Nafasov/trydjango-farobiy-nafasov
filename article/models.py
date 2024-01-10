@@ -44,10 +44,10 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('article:detail', args=[self.id])
 
-    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     if self.slug is None:
-    #         self.slug = slugify(self.title)
-    #     super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.slug is None:
+            self.slug = slugify(self.title)
+        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
 
 
 def article_pre_save(sender, instance, *args, **kwargs):

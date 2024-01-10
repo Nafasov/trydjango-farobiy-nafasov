@@ -10,7 +10,7 @@ from .views import (
 app_name = 'article'
 urlpatterns = [
     path('', article_list, name='list'),
-    path('article/<slug:slug>/', article_detail, name='detail'),
+    path('article/detail/<slug:slug>/', article_detail, name='detail'),
     path('article/create/', article_create, name='create'),
     path('article/creatre-form/', article_create_form, name='create-form'),
     path('article/change/<slug:slug>/', article_change, name='change-form'),
